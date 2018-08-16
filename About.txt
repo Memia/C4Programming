@@ -1,1 +1,1 @@
-In this lesson we learnt how to interact with objects using raycast and making regions.
+In this lesson we learnt how to look around and head to where the camera is faced using the mouse (in an inefficient way), and we are asked to clean up the code as homework.
