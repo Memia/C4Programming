@@ -1,1 +1,1 @@
-We made charactermovement using character controller.
+In this lesson we learnt how to interact with objects using raycast and making regions.

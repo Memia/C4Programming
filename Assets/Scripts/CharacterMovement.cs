@@ -6,6 +6,8 @@ using UnityEngine;
  /*
      multi line comment
  */
+
+    //adds the component "charactercontroller" when you attatch the script
 [RequireComponent(typeof(CharacterController))]
 public class CharacterMovement : MonoBehaviour
 {
@@ -17,7 +19,7 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     public CharacterController controller;
     private void Start()
-    {
+    {   //grabs the object "character controller" when you start, you don't need to drag it under the slot manually"
         controller = this.GetComponent<CharacterController>();
     }
 
