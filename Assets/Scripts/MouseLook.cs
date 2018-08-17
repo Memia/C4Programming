@@ -37,7 +37,12 @@ public class MouseLook : MonoBehaviour
     #region Update
     private void Update()
     {
+        switch (axis)
+        {
+            case RotationalAxis.MouseX:
 
+                break;
+        }
         #region Mouse X and Y
         //if our axis is set to Mouse X and Y
         if (axis == RotationalAxis.MouseXandY)
