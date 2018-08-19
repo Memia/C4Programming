@@ -3,16 +3,16 @@
 using UnityEngine;
 //single line of comment
 
- /*
-     multi line comment
- */
+/*
+    multi line comment
+*/
 
-    //adds the component "charactercontroller" when you attatch the script
+//adds the component "charactercontroller" when you attatch the script
 [RequireComponent(typeof(CharacterController))]
 public class CharacterMovement : MonoBehaviour
 {
     [Header("Movement Variables")]
-    [Range(0f,10f)]
+    [Range(0f, 10f)]
     [Space(10)]
     public float speed;
     public float jumpspeed, gravity;
@@ -26,18 +26,20 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+      
         if (controller.isGrounded)
         {
-            moveDirection = new Vector3(Input.GetAxis("Horizontal"),0,Input.GetAxis("Vertical"));
+            moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             moveDirection = transform.TransformDirection(moveDirection);
             moveDirection *= speed;
-            if(Input.GetButton("Jump"))
+            if (Input.GetButton("Jump"))
             {
                 moveDirection.y = jumpspeed;
-                }
+            }
         }
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
     }
-  
+
+   
 }
