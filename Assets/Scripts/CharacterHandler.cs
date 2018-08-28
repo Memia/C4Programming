@@ -14,13 +14,20 @@ public class CharacterHandler : MonoBehaviour
     //bool to tell if the player is alive
     //connection to players character controller
     public CharacterController controller;
+    CharacterMovement movement;
+    MouseLook look;
     #endregion
     [Header("Health")]
     #region Health
     //max and current health
     public float maxHealth;
     public float curHealth;
+    public float healOvertime = 10;
+    public float waitingTime = 3;
     public GUIStyle healthBar;
+
+
+
     #endregion
     [Header("Levels and Exp")]
     #region Level and Exp
@@ -30,6 +37,12 @@ public class CharacterHandler : MonoBehaviour
     public int maxExp;
     public int currentExp;
     #endregion
+    [Header("Mana")]
+    public float maxMana;
+    public float curMana;
+    [Header("Stamina")]
+    public float maxStamina;
+    public float curStamina;
     [Header("Camera Connection")]
     #region MiniMap
     //render texture for the mini map that we need to connect to a camera
@@ -39,6 +52,7 @@ public class CharacterHandler : MonoBehaviour
     #region Start
     private void Start()
     {
+
         //set max health to 100
         maxHealth = 100f;
         //set current health to max
@@ -49,6 +63,8 @@ public class CharacterHandler : MonoBehaviour
         maxExp = 60;
         //connect the Character Controller to the controller variable
         controller = GetComponent<CharacterController>();
+        maxMana = 1;
+
     }
 
 
@@ -57,6 +73,17 @@ public class CharacterHandler : MonoBehaviour
     #region Update
     private void Update()
     {
+
+        if (curHealth < maxHealth)
+        {
+            waitingTime -= Time.deltaTime;
+            if (waitingTime <= 0)
+            {
+                curHealth += healOvertime;
+                waitingTime = 3;
+            }
+        }
+
         //if our current experience is greater or equal to the maximum experience
         if (currentExp >= maxExp)
         {
@@ -98,6 +125,7 @@ public class CharacterHandler : MonoBehaviour
         }
     }
     #endregion
+
     #region OnGUI
     void OnGUI()
     {
@@ -107,36 +135,31 @@ public class CharacterHandler : MonoBehaviour
         float scrW = Screen.width / 16;
         //scrH - 9
         float scrH = Screen.height / 9;
-
+        #region health
         //GUI Box on screen for the healthbar background
-        GUI.Box(new Rect(6f*scrW,0.25f*scrH,4*scrW,0.5f*scrH),"");
+        GUI.Box(new Rect(6f * scrW, 0.25f * scrH, 4 * scrW, 0.5f * scrH), "");
         //GUI Box for current health that moves in same place as the background bar      
         //current Health divided by the posistion on screen and timesed by the total max health
-        GUI.Box(new Rect(6f * scrW, 0.25f * scrH, curHealth*( 4 * scrW)/maxHealth, 0.5f * scrH), "",healthBar);
+        GUI.Box(new Rect(6f * scrW, 0.25f * scrH, curHealth * (4 * scrW) / maxHealth, 0.5f * scrH), "", healthBar);
+        //Taken Health divided by the posistion on screen and timesed by the total max health
+        // GUI.Box(new Rect(6f * scrW, 0.25f * scrH, curHealth * (4 * scrW) / maxHealth, 0.5f * scrH), "", healthBar);
         //GUI Box on screen for the experience background
         GUI.Box(new Rect(6f * scrW, 0.75f * scrH, 4 * scrW, 0.25f * scrH), "");
-        GUI.Box(new Rect(6f * scrW, 0.75f * scrH, currentExp*(4 * scrW)/maxExp, 0.25f * scrH), "");
+        GUI.Box(new Rect(6f * scrW, 0.75f * scrH, currentExp * (4 * scrW) / maxExp, 0.25f * scrH), "");
         //GUI Box for current experience that moves in same place as the background bar
         //current experience divided by the posistion on screen and timesed by the total max experience
         //GUI Draw Texture on the screen that has the mini map render texture attached
-        GUI.DrawTexture(new Rect(13.75f*scrW,0.25f* scrH,2* scrW, 2*scrH), miniMap);
+        GUI.DrawTexture(new Rect(13.75f * scrW, 0.25f * scrH, 2 * scrW, 2 * scrH), miniMap);
+
+
+
+
     }
-    #endregion
-
-
-
 
 
 
 
 }
+#endregion
 
-
-
-
-
-
-
-
-
-
+#endregion
