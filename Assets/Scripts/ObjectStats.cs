@@ -5,20 +5,19 @@ using UnityEngine;
 
 public class ObjectStats : MonoBehaviour
 {
-    CharacterHandler handler;
+    public CharacterHandler handler;
     public float damage = 5;
     public float heal = 5;
-    
-    // Use this for initialization
-    void Start()
+   
+   public void OnTriggerEnter(Collider col)
     {
         
+        if (col.gameObject.tag == ("Player"))
+        {
+
+                handler.curHealth -= damage;
+
+
+        }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
 }
