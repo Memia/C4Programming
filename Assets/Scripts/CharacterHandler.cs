@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 //this script can be found in the Component section under the option Character Set Up 
 //Character Handler
 [AddComponentMenu("FirstPerson/Stats")]
 public class CharacterHandler : MonoBehaviour
 {
+    public ObjectStats objectstats;
+    public GameObject objects;
     #region Variables
 
 
@@ -16,6 +19,7 @@ public class CharacterHandler : MonoBehaviour
     public CharacterController controller;
     CharacterMovement movement;
     MouseLook look;
+
     #endregion
     [Header("Health")]
     #region Health
@@ -24,13 +28,19 @@ public class CharacterHandler : MonoBehaviour
     public float curHealth;
     public float healOvertime = 10;
     public float waitingTime = 3;
+    public Slider newHealthBar;
+    public Slider secondaryHealthBar;
+    public float secondaryHealth;
+    public float secondaryHealthSpeed = 10;
+    public float secondaryTimer;
     public GUIStyle healthBar;
 
 
 
     #endregion
-    [Header("Levels and Exp")]
     #region Level and Exp
+    [Header("Levels and Exp")]
+
     //players current level
     public int level;
     //max and current experience 
@@ -40,15 +50,38 @@ public class CharacterHandler : MonoBehaviour
     [Header("Mana")]
     public float maxMana;
     public float curMana;
+    public Slider manaBar;
+    public Slider secondaryManaBar;
     [Header("Stamina")]
     public float maxStamina;
     public float curStamina;
+    public float staminaTimer = 2f;
+    public Slider staminarBar;
+    [Header("Stats")]
+    public float dexterity = 1f;
+    public float constitution = 1f;
+    public float wisdom = 1f;
+    public float stamina = 100f;
+
     [Header("Camera Connection")]
+
     #region MiniMap
     //render texture for the mini map that we need to connect to a camera
     public RenderTexture miniMap;
     #endregion
     #endregion
+    public void Awake()
+    {
+        stamina *= dexterity;
+        maxHealth *= constitution;
+        maxMana *= wisdom;
+        curStamina = maxStamina;
+        curMana = maxMana;
+        secondaryHealth = curHealth;
+
+        objects = GameObject.FindGameObjectWithTag("PainBox");
+        objectstats = objects.GetComponent<ObjectStats>();
+    }
     #region Start
     private void Start()
     {
@@ -73,6 +106,36 @@ public class CharacterHandler : MonoBehaviour
     #region Update
     private void Update()
     {
+        if (secondaryTimer > 0)
+        { secondaryTimer--; }
+        if (secondaryTimer < 0)
+        { secondaryTimer = 0; }
+
+        if (secondaryHealth > curHealth)
+        {
+            if (secondaryTimer == 0f)
+                secondaryHealth -= Time.deltaTime * secondaryHealthSpeed;
+        }
+        if (secondaryHealth < curHealth)
+        {
+            secondaryHealth = curHealth;
+        }
+        staminarBar.value = curStamina / maxStamina;
+        manaBar.value = curMana / maxMana;
+        if (curStamina < maxStamina)
+        {
+            staminaTimer -= Time.deltaTime;
+            if (staminaTimer <= 0)
+            {
+                curStamina++;
+
+            }
+
+        }
+        if (curStamina >= maxStamina)
+        {
+            curStamina = maxStamina;
+        }
 
         if (curHealth < maxHealth)
         {
@@ -103,6 +166,8 @@ public class CharacterHandler : MonoBehaviour
     #region LateUpdate
     private void LateUpdate()
     {
+        newHealthBar.value = curHealth / maxHealth;
+        secondaryHealthBar.value = secondaryHealth / maxHealth;
         //if our current health is greater than our maximum amount of health
         if (curHealth > maxHealth)
         {//then our current health is equal to the max health
@@ -125,7 +190,11 @@ public class CharacterHandler : MonoBehaviour
         }
     }
     #endregion
-
+    public void TakeDamage()
+    {
+        secondaryTimer = 50f;
+        curHealth -= objectstats.damage;
+    }
     #region OnGUI
     void OnGUI()
     {
