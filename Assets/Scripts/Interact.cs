@@ -8,10 +8,15 @@ public class Interact : MonoBehaviour
     public GameObject player;
     public GameObject mainCam;
     public Camera cam;
-
+    public CharacterMovement playerMovement;
+    public MouseLook characterLook;
     // Use this for initialization
     void Start()
     {
+        //set cursor lock state to locked
+        Cursor.lockState = CursorLockMode.Locked;
+        //hide cursor
+        Cursor.visible = false;
         //finding by name, creates a problem when you are looking for a specific object sharing the same name.
         player = GameObject.Find("Player");
         //finding by tag
@@ -20,6 +25,8 @@ public class Interact : MonoBehaviour
         cam = mainCam.GetComponent<Camera>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         */
+        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMovement>();
+        characterLook = GameObject.FindGameObjectWithTag("Player").GetComponent<MouseLook>();
     }
 
     // Update is called once per frame
@@ -35,11 +42,26 @@ public class Interact : MonoBehaviour
                                           //put f at the end if it is decimal, e.g. 10.5f
             if(Physics.Raycast(interact,out hitInfo, 10))
             {
+
                 //manually creates a region so you can collapse things.
                 #region NPC Dialogue
                 if (hitInfo.collider.CompareTag("NPC"))
-                {
-                    Debug.Log("Talk to NPC");
+                {   //dialogue = hitinfo check for dialogue
+                    Dialogue dlg = hitInfo.transform.GetComponent<Dialogue>();
+                    //if player has dialogue
+                    if (dlg != null)
+                    {
+                        //show dialogue
+                        dlg.showDialogue = true;
+                        //turn off camera look and player movement
+                        playerMovement.enabled = false;
+                        characterLook.enabled = false;
+                        //set the cursor to unlocked
+                        Cursor.lockState = CursorLockMode.Confined;
+                        //set the cursor to visible
+                        Cursor.visible = true;
+                        Debug.Log("Talk to NPC");
+                    }
                 }
                
                 #endregion

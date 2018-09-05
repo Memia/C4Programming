@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4232,12 +4232,12 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 282924148}
   m_CullTransparentMesh: 0
---- !u!43 &295429249
+--- !u!43 &322893497
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh3920
+  m_Name: pb_Mesh4090
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -5733,7 +5733,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh3856
+  m_Name: pb_Mesh3890
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -6160,6 +6160,7 @@ GameObject:
   - component: {fileID: 1429409248}
   - component: {fileID: 1429409247}
   - component: {fileID: 1429409246}
+  - component: {fileID: 1429409251}
   m_Layer: 0
   m_Name: Donut
   m_TagString: NPC
@@ -6180,7 +6181,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 295429249}
+  m_Mesh: {fileID: 322893497}
 --- !u!114 &1429409247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32228,7 +32229,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1429409245}
-  m_Mesh: {fileID: 295429249}
+  m_Mesh: {fileID: 322893497}
 --- !u!23 &1429409249
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -32277,6 +32278,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1429409251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1429409245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c39b881241994ec428bfb1a608544d65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showDialogue: 0
+  currentLine: 0
+  optionIndex: 0
+  playerMovement: {fileID: 0}
+  characterLook: {fileID: 0}
+  NPCName: Potatoenail
+  text:
+  - gave you a quest, accept?
+  - is screaming in joy hysterically
+  - just remembered he is a potato
+  - is sad
+  - is crying hysterically
+  scr: {x: 0, y: 0}
 --- !u!1 &1605881119
 GameObject:
   m_ObjectHideFlags: 0
@@ -32379,6 +32404,7 @@ GameObject:
   - component: {fileID: 1654089073}
   - component: {fileID: 1654089081}
   - component: {fileID: 1654089082}
+  - component: {fileID: 1654089083}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -32599,6 +32625,8 @@ MonoBehaviour:
   player: {fileID: 0}
   mainCam: {fileID: 0}
   cam: {fileID: 0}
+  playerMovement: {fileID: 0}
+  characterLook: {fileID: 0}
 --- !u!114 &1654089080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32644,6 +32672,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentCheckPoint: {fileID: 0}
   charH: {fileID: 0}
+--- !u!114 &1654089083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1654089072}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c39b881241994ec428bfb1a608544d65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showDialogue: 0
+  currentLine: 0
+  optionIndex: 0
+  playerMovement: {fileID: 0}
+  characterLook: {fileID: 0}
+  NPCName: 
+  text: []
+  scr: {x: 0, y: 0}
 --- !u!1 &1796139099
 GameObject:
   m_ObjectHideFlags: 0
