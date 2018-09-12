@@ -58,9 +58,9 @@ public class CharacterHandler : MonoBehaviour
     public float staminaTimer = 2f;
     public Slider staminarBar;
     [Header("Stats")]
-    public float dexterity = 1f;
-    public float constitution = 1f;
-    public float wisdom = 1f;
+    public int dexterity = 1;
+    public int constitution = 1;
+    public int wisdom = 1;
     public float stamina = 100f;
 
     [Header("Camera Connection")]
